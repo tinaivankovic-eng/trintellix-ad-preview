@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trintellix Display Ad ISI Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Mulish', sans-serif;
+  background: #f4f2ef;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #212121;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.3px;
+}
+
+.ad-shell {
+  font-family: 'Mulish', sans-serif;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 0.5px solid #ddd;
+  max-width: 900px;
+}
+
+.size-controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+.size-label {
+  font-size: 12px;
+  color: #666;
+  font-weight: 600;
+}
+
+.size-btn {
+  padding: 5px 13px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 0.5px solid #bbb;
+  border-radius: 8px;
+  background: #fff;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'Mulish', sans-serif;
+}
+.size-btn.active {
+  background: #212121;
+  color: #fff;
+  border-color: #212121;
+}
+.size-btn:hover:not(.active) {
+  color: #212121;
+  border-color: #888;
+}
+
+.ad-stage {
+  display: flex;
+  justify-content: center;
+  min-height: 260px;
+  align-items: flex-start;
+}
+
+.ad-unit {
+  display: flex;
+  border: 1px solid #bbb;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.13);
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.ad-creative-placeholder {
+  background: #d4d0cc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.placeholder-label {
+  font-family: 'Mulish', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  color: #888;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.isi-panel {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.isi-header {
+  background: #E3DED7;
+  padding: 5px 8px;
+  border-bottom: 1px solid #c8c3bc;
+  flex-shrink: 0;
+}
+
+.isi-header-label {
+  font-family: 'Mulish', sans-serif;
+  font-size: 8px;
+  font-weight: 800;
+  color: #212121;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.isi-scroll-area {
+  overflow-y: auto;
+  flex: 1;
+  padding: 6px 8px 0;
+}
+.isi-scroll-area::-webkit-scrollbar { width: 5px; }
+.isi-scroll-area::-webkit-scrollbar-track { background: #f0ede8; }
+.isi-scroll-area::-webkit-scrollbar-thumb { background: #b0a89e; border-radius: 3px; }
+
+.isi-text {
+  font-family: 'Mulish', sans-serif;
+  font-size: 7.5px;
+  line-height: 1.55;
+  color: #212121;
+}
+.isi-text p { margin: 0 0 5px; }
+.isi-text strong { font-weight: 700; }
+.isi-text .boxed-warning {
+  border: 1px solid #212121;
+  padding: 4px 6px;
+  margin-bottom: 5px;
+}
+.isi-text .boxed-warning-title {
+  font-weight: 800;
+  font-size: 7.5px;
+  text-align: center;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+}
+.isi-text .section-head {
+  font-weight: 800;
+  font-size: 7.5px;
+  text-transform: uppercase;
+  margin: 5px 0 2px;
+}
+.isi-text ul {
+  margin: 2px 0 4px;
+  padding-left: 12px;
+}
+.isi-text li { margin-bottom: 2px; }
+
+.isi-pi-bar {
+  border-top: 1px solid #d4cfc8;
+  padding: 2px 8px 4px;
+  background: #F6F4EE;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.pi-link {
+  font-family: 'Mulish', sans-serif;
+  font-size: 7.5px;
+  font-weight: 700;
+  color: #212121;
+  text-decoration: underline;
+  cursor: pointer;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  vertical-align: middle;
+}
+.pi-link::after {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2 6h8M6.5 3l3.5 3-3.5 3' stroke='%23212121' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+
+.footnote {
+  margin-top: 1rem;
+  font-size: 11px;
+  color: #888;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<h1>Trintellix® (vortioxetine) — Display Ad ISI Preview</h1>
+
+<div class="ad-shell">
+  <div class="size-controls">
+    <span class="size-label">Size:</span>
+    <button class="size-btn active" onclick="switchSize('300x250')">300×250</button>
+    <button class="size-btn" onclick="switchSize('300x600')">300×600</button>
+    <button class="size-btn" onclick="switchSize('160x600')">160×600</button>
+    <button class="size-btn" onclick="switchSize('728x90')">728×90</button>
+
+  </div>
+
+  <div class="ad-stage">
+    <div class="ad-unit" id="adUnit"></div>
+  </div>
+
+  <p class="footnote">ISI scrolls independently · PI link opens full prescribing info · Creative area is a placeholder for ad mockups</p>
+</div>
+
+<script>
+const IMAGE_ICON = (w, h) => {
+  const s = Math.min(w, h);
+  const ic = Math.round(s * 0.28);
+  return `<svg width="${ic}" height="${ic}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="1" y="4" width="22" height="16" rx="2" stroke="#999" stroke-width="1.5" fill="none"/>
+    <circle cx="8.5" cy="9.5" r="2" stroke="#999" stroke-width="1.2" fill="none"/>
+    <path d="M1 16l5.5-5.5 4 4 3.5-3.5L23 16" stroke="#999" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
+};
+
+const ISI_CONTENT = `<div class="isi-text">
+  <div class="boxed-warning">
+    <div class="boxed-warning-title">WARNING: Suicidal Thoughts &amp; Behaviors</div>
+    <ul>
+      <li>Antidepressants increased the risk of suicidal thoughts and behaviors in pediatric and young adult patients in short-term studies.</li>
+      <li>Closely monitor all antidepressant-treated patients for clinical worsening, and for emergence of suicidal thoughts and behaviors.</li>
+      <li>TRINTELLIX is not approved for use in pediatric patients.</li>
+    </ul>
+  </div>
+  <div class="section-head">Contraindications</div>
+  <ul>
+    <li><strong>Hypersensitivity:</strong> Hypersensitivity to vortioxetine or any component of the TRINTELLIX formulation. Hypersensitivity reactions including anaphylaxis, angioedema, and urticaria have been reported.</li>
+    <li><strong>MAOIs:</strong> Do not use MAOIs intended to treat psychiatric disorders with TRINTELLIX or within 21 days of stopping TRINTELLIX. Do not use TRINTELLIX within 14 days of stopping an MAOI.</li>
+    <li><strong>Linezolid and Methylene Blue:</strong> Do not start TRINTELLIX in a patient being treated with MAOIs such as linezolid or IV methylene blue due to increased risk of serotonin syndrome.</li>
+  </ul>
+  <div class="section-head">Warnings and Precautions</div>
+  <ul>
+    <li><strong>Suicidal Thoughts and Behaviors in Adolescents and Young Adults:</strong> Monitor all antidepressant-treated patients for clinical worsening and emergence of suicidal thoughts and behaviors, especially during the initial few months of drug therapy and at times of dosage changes.</li>
+    <li><strong>Serotonin Syndrome:</strong> TRINTELLIX can precipitate serotonin syndrome, a potentially life-threatening condition. Risk is increased with concomitant use of other serotonergic drugs and with drugs that impair metabolism of serotonin (MAOIs).</li>
+    <li><strong>Increased Risk of Bleeding:</strong> Use of TRINTELLIX may increase the risk of bleeding events. Concomitant use of aspirin, NSAIDs, warfarin, and other anticoagulants may add to this risk.</li>
+    <li><strong>Activation of Mania/Hypomania:</strong> Prior to initiating treatment, screen patients for any personal or family history of bipolar disorder, mania, or hypomania.</li>
+    <li><strong>Discontinuation Syndrome:</strong> A gradual reduction in dosage rather than abrupt cessation is recommended whenever possible.</li>
+    <li><strong>Angle-Closure Glaucoma:</strong> Pupillary dilation may trigger an angle-closure attack in a patient with anatomically narrow angles who does not have a patent iridectomy.</li>
+    <li><strong>Hyponatremia:</strong> Has occurred as a result of treatment with serotonergic drugs including TRINTELLIX; may be the result of SIADH. Elderly patients and patients taking diuretics can be at greater risk.</li>
+    <li><strong>Sexual Dysfunction:</strong> Use of TRINTELLIX may cause symptoms of sexual dysfunction in both male and female patients.</li>
+  </ul>
+  <div class="section-head">Adverse Reactions</div>
+  <p>The most commonly observed adverse reactions (incidence ≥5% and at least twice the rate of placebo) were: nausea, constipation, and vomiting.</p>
+  <div class="section-head">Drug Interactions</div>
+  <p>Concomitant administration with strong CYP2D6 inhibitors or strong CYP inducers may require a dose adjustment of TRINTELLIX.</p>
+  <div class="section-head">Pregnancy</div>
+  <p>Exposure to TRINTELLIX in late pregnancy may increase the risk for neonatal complications and/or persistent pulmonary hypertension of the newborn (PPHN). Use in the month before delivery may be associated with an increased risk of postpartum hemorrhage.</p>
+  <div class="section-head">Indication</div>
+  <p>TRINTELLIX&reg; (vortioxetine) is indicated for the treatment of Major Depressive Disorder (MDD) in adults.</p>
+</div>`;
+
+const PI_URL = 'https://general.takedapharm.com/TRINTELLIXPI';
+const PI_LABEL = 'See Full Prescribing Information, including Boxed Warning';
+
+const CONFIGS = {
+  '300x250': { w:300, h:250, isiH:95,  horiz:false, creativeW:null },
+  '300x600': { w:300, h:600, isiH:200, horiz:false, creativeW:null },
+  '160x600': { w:160, h:600, isiH:200, horiz:false, creativeW:null },
+  '728x90':  { w:728, h:90,  isiH:null, horiz:true,  creativeW:260 },
+
+};
+
+function buildISIPanel(opts) {
+  const borderSide = opts.horiz
+    ? 'border-left:2px solid #c8c3bc;'
+    : 'border-top:2px solid #c8c3bc;';
+  const wStyle = opts.horiz
+    ? `width:${opts.isiW}px;height:${opts.h}px;`
+    : `width:${opts.w}px;height:${opts.isiH}px;`;
+
+  return `<div class="isi-panel" style="${wStyle}${borderSide}">
+    <div class="isi-header">
+      <div class="isi-header-label">Important Safety Information</div>
+    </div>
+    <div class="isi-scroll-area">${ISI_CONTENT}</div>
+    <div class="isi-pi-bar">
+      <a class="pi-link" href="${PI_URL}" target="_blank">${PI_LABEL}</a>
+    </div>
+  </div>`;
+}
+
+function buildPlaceholder(w, h) {
+  return `<div class="ad-creative-placeholder" style="width:${w}px;height:${h}px;">
+    <div>${IMAGE_ICON(w, h)}</div>
+    <div class="placeholder-label">Ad Creative</div>
+  </div>`;
+}
+
+function buildAd(sizeKey) {
+  const c = CONFIGS[sizeKey];
+  const unit = document.getElementById('adUnit');
+  unit.style.width = c.w + 'px';
+  unit.style.height = c.h + 'px';
+  unit.style.flexDirection = c.horiz ? 'row' : 'column';
+
+  if (c.horiz) {
+    const isiW = c.w - c.creativeW;
+    unit.innerHTML =
+      buildPlaceholder(c.creativeW, c.h) +
+      buildISIPanel({ horiz:true, isiW, h:c.h, w:c.w });
+  } else {
+    const creativeH = c.h - c.isiH;
+    unit.innerHTML =
+      buildPlaceholder(c.w, creativeH) +
+      buildISIPanel({ horiz:false, isiH:c.isiH, w:c.w, h:c.h });
+  }
+}
+
+function switchSize(key) {
+  document.querySelectorAll('.size-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.replace('×','x') === key);
+  });
+  buildAd(key);
+}
+
+buildAd('300x250');
+</script>
+</body>
+</html>
